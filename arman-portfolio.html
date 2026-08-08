@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arman - Quality Analyst | Flipkart CX Audit Expert</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2C3E50;
+            --secondary: #1A7F7E;
+            --accent: #0066CC;
+            --success: #27AE60;
+            --light: #F5F5F5;
+            --white: #FFFFFF;
+            --dark: #1A1F36;
+            --text: #2C3E50;
+            --text-light: #666;
+            --border: #E0E0E0;
+        }
+
+        body.dark-mode {
+            --text: #F5F5F5;
+            --text-light: #B0B0B0;
+            --light: #1A1F36;
+            --white: #252D3D;
+            --border: #404050;
+        }
+
+        body {
+            font-family: 'Roboto', 'Open Sans', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Navigation & Header */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: slideInUp 1s ease;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about {
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .achievement-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-card h4 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-card p {
+            color: rgba(255,255,255,0.9);
+            margin: 0;
+        }
+
+        /* Dashboard Section */
+        #dashboard {
+            background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .metric-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 1rem 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Skills Section */
+        #skills {
+            background: var(--white);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent);
+        }
+
+        .skill-item:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .skill-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-bar {
+            background: var(--border);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            border-radius: 4px;
+            animation: fillBar 1.5s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fillBar {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Experience Timeline */
+        #experience {
+            background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+            margin-right: 51%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 51%;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 1.5rem;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .timeline-content h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Case Studies */
+        #casestudies {
+            background: var(--white);
+        }
+
+        .casestudy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .casestudy-card {
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .casestudy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .casestudy-header {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem;
+        }
+
+        .casestudy-header h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .casestudy-body {
+            padding: 2rem;
+        }
+
+        .casestudy-body p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .casestudy-metric {
+            background: var(--white);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+        }
+
+        .casestudy-metric strong {
+            color: var(--success);
+        }
+
+        /* Process Flow */
+        #process {
+            background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+
+        .process-circle {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,102,204,0.3);
+        }
+
+        .process-step:hover .process-circle {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,102,204,0.5);
+        }
+
+        .process-step p {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .process-arrow {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .contact-item h4 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                margin-left: 30px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 0;
+            }
+
+            .process-flow {
+                flex-direction: column;
+            }
+
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero::before,
+            .hero::after {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero {
+                margin-top: 100px;
+                min-height: auto;
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            .achievement-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .counter {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">ARMAN</a>
+        <ul class="nav-links">
+            <li><a onclick="scrollToSection('hero')">Home</a></li>
+            <li><a onclick="scrollToSection('about')">About</a></li>
+            <li><a onclick="scrollToSection('dashboard')">Dashboard</a></li>
+            <li><a onclick="scrollToSection('experience')">Experience</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>ARMAN</h1>
+            <p>Quality Analyst | Flipkart CX Audit Expert</p>
+            <p style="font-size: 1.1rem; opacity: 0.95;">Driving Quality Excellence Through Data-Driven Audit Processes</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="Arman_Resume.pdf" class="btn btn-secondary" download>Download Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Quality Analyst at Wyzmindz Pvt. Ltd.</h3>
+                <p>I'm a detail-oriented Quality Analyst with proven expertise in conducting Flipkart center audits and implementing quality control processes that drive continuous improvement.</p>
+                
+                <p><strong>Current Focus:</strong></p>
+                <ul style="margin-left: 1rem; margin-bottom: 1.5rem;">
+                    <li>External audits across Flipkart centers for compliance evaluation</li>
+                    <li>Resolution Rate (RR) analysis and quality score optimization</li>
+                    <li>Process gap identification and innovative improvement recommendations</li>
+                    <li>CEO-level escalation management and support</li>
+                </ul>
+
+                <p>With a background in root-cause analysis and data validation using 7QC tools, I identify inefficiencies and deliver actionable insights that enhance customer satisfaction and operational efficiency.</p>
+                
+                <a href="Arman_Resume.pdf" class="btn btn-primary" style="margin-top: 1rem;" download>Download Resume</a>
+            </div>
+
+            <div>
+                <div class="achievement-cards">
+                    <div class="achievement-card">
+                        <h4>3+</h4>
+                        <p>Years in QA & Audits</p>
+                    </div>
+                    <div class="achievement-card">
+                        <h4>15+</h4>
+                        <p>Flipkart Centers Audits</p>
+                    </div>
+                    <div class="achievement-card">
+                        <h4>15+</h4>
+                        <p>Process Improvements</p>
+                    </div>
+                    <div class="achievement-card">
+                        <h4>95%</h4>
+                        <p>Avg Quality Score</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard">
+        <h2 class="section-title">Audit Dashboard</h2>
+        
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-label">Flipkart Centers Audits</div>
+                <div class="metric-number"><span class="counter" data-target="15">0</span>+</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Process Improvements</div>
+                <div class="metric-number"><span class="counter" data-target="15">0</span>+</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Quality Issues Resolved</div>
+                <div class="metric-number"><span class="counter" data-target="150">0</span>+</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Avg Quality Score</div>
+                <div class="metric-number"><span class="counter" data-target="95">0</span>%</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            <div class="chart-container">
+                <h3 style="text-align: center; margin-bottom: 1rem;">Quality Score Trend</h3>
+                <canvas id="trendChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3 style="text-align: center; margin-bottom: 1rem;">Audits I Have Performed as the LOBs</h3>
+                <canvas id="auditChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Core Competencies</h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <h4>📊 Audit Expertise</h4>
+                <p>Flipkart Inbound IR, Hotline (Large Appliances), external center audits, compliance checks</p>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width: 95%; animation-delay: 0.1s;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h4>📈 Data Analysis & Validation</h4>
+                <p>7QC tools proficiency, metrics tracking, quality score optimization</p>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width: 90%; animation-delay: 0.2s;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h4>🔍 Root-Cause Analysis</h4>
+                <p>Process gap identification, fishbone diagrams, deep-dive investigations</p>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width: 88%; animation-delay: 0.3s;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h4>💡 Process Optimization</h4>
+                <p>Creative problem-solving, workflow improvement, efficiency enhancement</p>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width: 87%; animation-delay: 0.4s;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h4>📱 Microsoft Office Suite</h4>
+                <p>Advanced Excel, data pivot tables, automated reporting, TSV processing</p>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width: 95%; animation-delay: 0.5s;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h4>🎯 Quality Assurance</h4>
+                <p>SOP implementation, compliance tracking, zero-defect initiatives</p>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width: 92%; animation-delay: 0.6s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>Quality Analyst</h4>
+                    <p class="timeline-date">Wyzmindz Pvt. Ltd. | Feb 2025 - Present</p>
+                    <div class="timeline-description">
+                        <p><strong>Current Role:</strong> Conducting external audits across Flipkart centers to evaluate quality scores and compliance standards.</p>
+                        <ul style="margin-left: 1.5rem; color: var(--text-light);">
+                            <li>Analyzing Resolution Rates (RR) and quality metrics across locations</li>
+                            <li>Identifying process gaps and recommending strategic improvements</li>
+                            <li>Managing CEO-level escalations and providing audit support</li>
+                            <li>Developing process improvement suggestions to enhance efficiency</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>Quality Analyst</h4>
+                    <p class="timeline-date">Tech Mahindra | May 2024 - Nov 2024</p>
+                    <div class="timeline-description">
+                        <p><strong>Focus:</strong> Customer satisfaction and quality excellence in telecom call centers.</p>
+                        <ul style="margin-left: 1.5rem; color: var(--text-light);">
+                            <li>Conducted design audits with detailed quality analysis</li>
+                            <li>Performed strategic problem-solving in customer interactions</li>
+                            <li>Identified process improvements and shortcomings</li>
+                            <li>Consistently met and exceeded quality targets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>Customer Support Executive</h4>
+                    <p class="timeline-date">Tech Mahindra | July 2023 - June 2024</p>
+                    <div class="timeline-description">
+                        <p><strong>Key Achievements:</strong> High customer satisfaction through effective issue resolution.</p>
+                        <ul style="margin-left: 1.5rem; color: var(--text-light);">
+                            <li>Resolved customer complaints related to products and deliveries</li>
+                            <li>Provided post-purchase support with attention to detail</li>
+                            <li>Achieved high customer satisfaction ratings</li>
+                            <li>Managed complex customer inquiries professionally</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="casestudies">
+        <h2 class="section-title">Case Studies & Projects</h2>
+        <div class="casestudy-grid">
+            <div class="casestudy-card">
+                <div class="casestudy-header">
+                    <h4>📋 Process Improvement Initiative</h4>
+                </div>
+                <div class="casestudy-body">
+                    <p><strong>Challenge:</strong> Audit process was time-consuming with inconsistent quality evaluation across centers.</p>
+                    <p><strong>Solution:</strong> Implemented structured audit methodology with standardized checklists and data validation protocols.</p>
+                    <p><strong>Approach:</strong> Root-cause analysis using fishbone diagrams, streamlined data collection process.</p>
+                    <div class="casestudy-metric">
+                        <strong>📈 Result:</strong> 20% improvement in audit speed, 15% better consistency
+                    </div>
+                </div>
+            </div>
+
+            <div class="casestudy-card">
+                <div class="casestudy-header">
+                    <h4>🎯 CEO Escalation Case Study</h4>
+                </div>
+                <div class="casestudy-body">
+                    <p><strong>Challenge:</strong> Critical quality issue flagged at executive level requiring immediate investigation.</p>
+                    <p><strong>Solution:</strong> Conducted deep-dive audit analysis to identify root causes and systemic gaps.</p>
+                    <p><strong>Approach:</strong> Multi-center data aggregation, trend analysis, strategic recommendations.</p>
+                    <div class="casestudy-metric">
+                        <strong>✅ Result:</strong> Issue resolved, process improvement implemented, stakeholder satisfaction
+                    </div>
+                </div>
+            </div>
+
+            <div class="casestudy-card">
+                <div class="casestudy-header">
+                    <h4>🏪 Flipkart Center Audits 15+</h4>
+                </div>
+                <div class="casestudy-body">
+                    <p><strong>Challenge:</strong> Large-scale audit across multiple Flipkart centers with varying operational standards.</p>
+                    <p><strong>Solution:</strong> Developed comprehensive audit framework covering compliance, quality, and operational metrics.</p>
+                    <p><strong>Approach:</strong> Standardized assessment, Resolution Rate analysis, comparative benchmarking.</p>
+                    <div class="casestudy-metric">
+                        <strong>📊 Result:</strong> 95% avg quality score, identified 100+ improvement areas
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process">
+        <h2 class="section-title">Audit Process Workflow</h2>
+        <div class="process-flow">
+            <div class="process-step">
+                <div class="process-circle">1</div>
+                <p>Data Collection</p>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+                <div class="process-circle">2</div>
+                <p>Analysis</p>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+                <div class="process-circle">3</div>
+                <p>Gap Identification</p>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+                <div class="process-circle">4</div>
+                <p>Recommendations</p>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+                <div class="process-circle">5</div>
+                <p>Implementation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title" style="color: white;">Get In Touch</h2>
+        <div class="contact-content">
+            <p>Interested in quality improvements, process optimization, or audit excellence? Let's connect and discuss how I can help elevate your quality standards.</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>📧 Email</h4>
+                    <a href="mailto:arman5628.as@gmail.com">arman5628.as@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <h4>📱 Phone</h4>
+                    <a href="tel:+919354174562">+91 9354174562</a>
+                </div>
+                <div class="contact-item">
+                    <h4>📍 Location</h4>
+                    <p>Ghaziabad, Uttar Pradesh, India</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/arman-12a2863ab?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" title="LinkedIn">🔗</a>
+                <a href="https://www.linkedin.com/in/arman-12a2863ab?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" title="LinkedIn Profile">💼</a>
+                <a href="mailto:arman5628.as@gmail.com" title="Email">✉️</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Arman - Quality Analyst. All rights reserved.</p>
+        <p>Last updated: August 2025 | Deployed on GitHub Pages</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            toggleTheme();
+        }
+
+        // Smooth Scroll
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 50;
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Scroll Reveal
+        function scrollReveal() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+
+        // Chart.js Configuration
+        function initCharts() {
+            // Quality Score Trend Chart
+            const trendCtx = document.getElementById('trendChart');
+            if (trendCtx) {
+                new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                        datasets: [{
+                            label: 'Quality Score',
+                            data: [88, 90, 92, 91, 94, 95],
+                            borderColor: '#0066CC',
+                            backgroundColor: 'rgba(0, 102, 204, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#0066CC',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    color: document.body.classList.contains('dark-mode') ? '#F5F5F5' : '#2C3E50'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 80,
+                                max: 100,
+                                ticks: {
+                                    color: document.body.classList.contains('dark-mode') ? '#B0B0B0' : '#666'
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: document.body.classList.contains('dark-mode') ? '#B0B0B0' : '#666'
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Audit Distribution Chart - Updated with new data
+            const auditCtx = document.getElementById('auditChart');
+            if (auditCtx) {
+                new Chart(auditCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Flipkart Minutes/Hyperlocal', 'CEO Escalation Audits', 'Flipkart Blue/BAU Audits', 'Flipkart Grocery Audits', 'Flipkart AI Audits'],
+                        datasets: [{
+                            data: [30, 20, 20, 20, 10],
+                            backgroundColor: [
+                                '#0066CC',
+                                '#1A7F7E',
+                                '#27AE60',
+                                '#F39C12',
+                                '#E74C3C'
+                            ],
+                            borderColor: document.body.classList.contains('dark-mode') ? '#1A1F36' : '#FFFFFF',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: document.body.classList.contains('dark-mode') ? '#F5F5F5' : '#2C3E50',
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize on Page Load
+        document.addEventListener('DOMContentLoaded', () => {
+            animateCounters();
+            initCharts();
+            scrollReveal();
+        });
+
+        // Scroll Events
+        window.addEventListener('scroll', scrollReveal);
+    </script>
+</body>
+</html>
